@@ -1,0 +1,39 @@
+{
+  "name": "asciicast2gif",
+  "version": "0.2.1",
+  "description": "asciinema GIF generator",
+  "main": "main.js",
+  "bin": {
+    "asciicast2gif": "asciicast2gif"
+  },
+  "dependencies": {
+    "phantomjs-prebuilt": "^2.1.16"
+  },
+  "scripts": {
+    "build": "lein cljsbuild once main; lein cljsbuild once page",
+    "watch": "lein cljsbuild auto",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "asciicast2gif",
+    "main.js",
+    "page/asciicast2gif.html",
+    "page/asciinema-player.css",
+    "page/fontfaceonload.js",
+    "page/page.js",
+    "renderer.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asciinema/asciicast2gif.git"
+  },
+  "author": "Marcin Kulik",
+  "contributors": [
+    "Sebastian Schmidt (https://github.com/publicarray)"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/asciinema/asciicast2gif/issues"
+  },
+  "homepage": "https://github.com/asciinema/asciicast2gif#readme"
+}
