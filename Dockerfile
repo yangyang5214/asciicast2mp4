@@ -57,6 +57,8 @@ COPY --from=0 /app/main.js /app/
 COPY --from=0 /app/page/page.js /app/page/
 COPY --from=1 /usr/local/bin/gifsicle /usr/local/bin/
 
+RUN apt-get install ffmpeg -y
+
 WORKDIR /data
 VOLUME ["/data"]
 

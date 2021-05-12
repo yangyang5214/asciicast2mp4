@@ -86,17 +86,9 @@ if [[ -n $height ]]; then
     export HEIGHT=$height
 fi
 
-if [[ -z $GIFSICLE_OPTS ]]; then
-    export GIFSICLE_OPTS="-k 64 -O2 -Okeep-empty"
-
-    if gifsicle -h 2>/dev/null | grep -q lossy; then
-        export GIFSICLE_OPTS="$GIFSICLE_OPTS --lossy=80"
-    fi
-fi
-
 
 case_id=$(basename -s .cast ${1})
-tmp_dir=$HOME'/data/playlog/images/'$case_id
+tmp_dir=$HOME'/data/playlog/'$case_id
 echo tmp_dir:${tmp_dir}
 #tmp_dir=$(mktemp -d 2>/dev/null || mktemp -d -t 'asciicast2gif-tmp')
 #trap 'rm -rf $tm/p_dir' EXIT
@@ -109,5 +101,10 @@ node \
     $theme \
     $speed \
     $scale
+
+out_path=$HOME'/data/playlog/'$case_id'/result.mp4'
+echo out_file:${out_path}
+
+ffmpeg -i $tmp_dir/%d.png $out_path -y
 
 echo -e "\x1b[32m==> \x1b[0mDone."
