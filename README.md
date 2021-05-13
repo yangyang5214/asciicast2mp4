@@ -52,7 +52,7 @@ docker build -t beer5215/asciicast2mp4 .
 ```shell
 docker run --rm -v $PWD:/data beer5215/asciicast2mp4 xxx.cast
 
-cd playlog/xxx 
+cd xxx 
 
 $ ls
 0.png  10.png  11.png  12.png  1.png  2.png  3.png  4.png  5.png  6.png  7.png  8.png  9.png  result.mp4  result.time  tmp.time
