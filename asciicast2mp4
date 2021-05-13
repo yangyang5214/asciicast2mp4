@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+
+set -e
+
+export DEBUG=${DEBUG:-1}
+
+path_to_self="${BASH_SOURCE[0]}"
+
+# Detect path
+if [ -L "$path_to_self" ]; then
+  asciicast2gif_dir="$(cd "$(dirname "$path_to_self")"/"$(dirname "$(readlink "$path_to_self")")" && pwd)"
+else
+  asciicast2gif_dir="$(cd "$(dirname "$path_to_self")" && pwd)"
+fi
+
+if ! type "node" >/dev/null 2>&1; then
+  echo "error: Node.js not installed? Executable 'node' not found"
+  exit 1
+fi
+
+if [[ ! -f "${asciicast2gif_dir}/main.js" ]]; then
+  echo "error: ${asciicast2gif_dir}/main.js not found. Build it with: lein cljsbuild once main"
+  exit 1
+fi
+
+if [[ ! -f "${asciicast2gif_dir}/page/page.js" ]]; then
+  echo "error: ${asciicast2gif_dir}/page/page.js not found. Build it with: lein cljsbuild once page"
+  exit 1
+fi
+
+theme="asciinema"
+speed=1
+scale=2
+width=""
+height=""
+
+while getopts ":w:h:t:s:S:" opt; do
+  case $opt in
+  t)
+    theme=$OPTARG
+    ;;
+  s)
+    speed=$OPTARG
+    ;;
+  S)
+    scale=$OPTARG
+    ;;
+  w)
+    width=$OPTARG
+    ;;
+  h)
+    height=$OPTARG
+    ;;
+  \?)
+    echo "Invalid option: -$OPTARG" >&2
+    exit 1
+    ;;
+  :)
+    echo "Option -$OPTARG requires an argument." >&2
+    exit 1
+    ;;
+  esac
+done
+
+shift $((OPTIND - 1))
+
+if (($# != 1)); then
+  echo "asciicast2gif - Generate GIF animations from asciicasts (asciinema recordings)"
+  echo
+  echo "usage: asciicast2gif [-t theme] [-s speed] [-S scale] [-w columns] [-h rows] <input-json-path-or-url>"
+  echo
+  echo "options:"
+  echo "  -t <theme>        color theme, one of: asciinema, tango, solarized-dark, solarized-light, monokai (default: asciinema)"
+  echo "  -s <speed>        animation speed (default: 1)"
+  echo "  -S <scale>        image scale / pixel density (default: 2)"
+  echo "  -w <columns>      clip terminal to specified number of columns (width)"
+  echo "  -h <rows>         clip terminal to specified number of rows (height)"
+  exit 1
+fi
+
+if [[ -n $width ]]; then
+  export WIDTH=$width
+fi
+
+if [[ -n $height ]]; then
+  export HEIGHT=$height
+fi
+
+case_id=$(basename -s .cast ${1})
+tmp_dir='/data/'$case_id
+echo tmp_dir:${tmp_dir}
+
+node \
+  $NODE_OPTS \
+  "${asciicast2gif_dir}/main.js" \
+  "${1}" \
+  $tmp_dir \
+  $theme \
+  $speed \
+  $scale
+
+python /app/time_process.py $tmp_dir"/tmp.time"
+
+mp4_out_path=$tmp_dir'/result.mp4'
+echo out_file:${mp4_out_path}
+
+ffmpeg -f concat -safe 0 -i $tmp_dir'/result.time' -plays 0 $mp4_out_path -y
+
+echo -e "\x1b[32m==> \x1b[0mDone."

@@ -50,8 +50,9 @@ WORKDIR /app
 COPY package.json /app/
 RUN npm install
 
-COPY asciicast2gif /app/
+COPY asciicast2mp4 /app/
 COPY time_process.py /app/
+COPY 1.cast /app/
 COPY renderer.js /app/
 COPY page /app/page
 COPY --from=0 /app/main.js /app/
@@ -61,4 +62,4 @@ COPY --from=1 /usr/local/bin/gifsicle /usr/local/bin/
 WORKDIR /data
 VOLUME ["/data"]
 
-ENTRYPOINT ["/app/asciicast2gif"]
+ENTRYPOINT ["/app/asciicast2mp4"]
