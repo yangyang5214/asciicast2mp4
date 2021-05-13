@@ -25,7 +25,7 @@ ARG NODE_VERSION=node_6.x
 ARG DISTRO=xenial
 
 RUN apt-get update && \
-    apt-get install -y wget apt-transport-https && \
+    apt-get install -y ffmpeg wget apt-transport-https && \
     echo "deb https://deb.nodesource.com/$NODE_VERSION $DISTRO main" >/etc/apt/sources.list.d/nodesource.list && \
     wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
     apt-get update && \
@@ -51,13 +51,12 @@ COPY package.json /app/
 RUN npm install
 
 COPY asciicast2gif /app/
+COPY time_process.py /app/
 COPY renderer.js /app/
 COPY page /app/page
 COPY --from=0 /app/main.js /app/
 COPY --from=0 /app/page/page.js /app/page/
 COPY --from=1 /usr/local/bin/gifsicle /usr/local/bin/
-
-RUN apt-get install ffmpeg -y
 
 WORKDIR /data
 VOLUME ["/data"]

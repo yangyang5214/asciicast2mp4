@@ -39,4 +39,11 @@ All result in dir: /Users/beer/data/playlog/d18d3f31985dfb5bcc42120f8e289ba7a6d7
 ```
 
 
+### docker
+
+```shell
+cd asciicast2mp4
+docker build -t asciicast2mp4 .
+docker run --rm -v $PWD:/data asciicast2mp4 1.cast
+```
 

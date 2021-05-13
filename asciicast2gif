@@ -88,10 +88,8 @@ fi
 
 
 case_id=$(basename -s .cast ${1})
-tmp_dir=$HOME'/data/playlog/'$case_id
+tmp_dir='/data/playlog/'$case_id
 echo tmp_dir:${tmp_dir}
-#tmp_dir=$(mktemp -d 2>/dev/null || mktemp -d -t 'asciicast2gif-tmp')
-#trap 'rm -rf $tm/p_dir' EXIT
 
 node \
     $NODE_OPTS \
@@ -102,7 +100,7 @@ node \
     $speed \
     $scale
 
-python3 time_process.py
+python time_process.py $tmp_dir"/tmp.time"
 
 mp4_out_path=$tmp_dir'/result.mp4'
 echo out_file:${mp4_out_path}
