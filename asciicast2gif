@@ -2,7 +2,7 @@
 
 set -e
 
-export DEBUG=${DEBUG:-0}
+export DEBUG=${DEBUG:-1}
 
 path_to_self="${BASH_SOURCE[0]}"
 
@@ -88,7 +88,7 @@ fi
 
 
 case_id=$(basename -s .cast ${1})
-tmp_dir='/data/playlog/'$case_id
+tmp_dir=$HOME'/data/playlog/'$case_id
 echo tmp_dir:${tmp_dir}
 
 node \
