@@ -3,7 +3,7 @@
 
 asciinema to video
 
-从 asciicast2gif 项目阉割的，只生成图片，不生成 gif
+从 asciicast2gif 项目阉割的, 不生成 gif,然后转为 mp4
 
 ### demo
 
@@ -23,13 +23,19 @@ tmp_dir:/Users/beer/data/playlog/images/d18d3f31985dfb5bcc42120f8e289ba7a6d7d076
 ==> Done.
 ```
 
-all images in dir: /Users/beer/data/playlog/images/d18d3f31985dfb5bcc42120f8e289ba7a6d7d07681841157d926d36ae5819b45
-
-then, build mp4
+All result in dir: /Users/beer/data/playlog/d18d3f31985dfb5bcc42120f8e289ba7a6d7d07681841157d926d36ae5819b45
 
 ```shell
-cd /Users/beer/data/playlog/images/d18d3f31985dfb5bcc42120f8e289ba7a6d7d07681841157d926d36ae5819b45
-ffmpeg -i %d.png 1.mp4 -y
+# result mp4 
+-rw-r--r--@ 1 beer  staff   142K May 13 11:04 result.mp4
+# 时间片文件
+-rw-r--r--  1 beer  staff   1.4K May 13 11:04 result.time
+-rw-r--r--  1 beer  staff   2.5K May 13 11:04 tmp.time
+-rw-r--r--  1 beer  staff   263K May 13 11:04 27.png
+-rw-r--r--  1 beer  staff   263K May 13 11:04 xxxx.png
+-rw-r--r--  1 beer  staff    79K May 13 11:04 2.png
+-rw-r--r--  1 beer  staff    44K May 13 11:04 1.png
+-rw-r--r--  1 beer  staff    22K May 13 11:04 0.png
 ```
 
 
