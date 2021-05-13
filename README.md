@@ -1,9 +1,7 @@
 
-> fork form [asciicast2gif](https://github.com/asciinema/asciicast2gif)
+> fork form [asciicast2gif](https://github.com/asciinema/asciicast2gif). asciinema to mp4
 
-asciinema to video
-
-从 asciicast2gif 项目阉割的, 不生成 gif,然后转为 mp4
+从 asciicast2gif 项目阉割的, 不生成 gif, 直接转为 mp4
 
 ### demo
 
@@ -38,12 +36,27 @@ All result in dir: /Users/beer/data/playlog/d18d3f31985dfb5bcc42120f8e289ba7a6d7
 -rw-r--r--  1 beer  staff    22K May 13 11:04 0.png
 ```
 
-
 ### docker
 
 ```shell
+docker pull beer5215/asciicast2mp4
+```
+
+or
+
+```
 cd asciicast2mp4
-docker build -t asciicast2mp4 .
-docker run --rm -v $PWD:/data asciicast2mp4 1.cast
+docker build -t beer5215/asciicast2mp4 .
+```
+
+```shell
+docker run --rm -v $PWD:/data beer5215/asciicast2mp4 xxx.cast
+
+cd playlog/xxx 
+
+$ ls
+0.png  10.png  11.png  12.png  1.png  2.png  3.png  4.png  5.png  6.png  7.png  8.png  9.png  result.mp4  result.time  tmp.time
+
+open result.mp4
 ```
 
