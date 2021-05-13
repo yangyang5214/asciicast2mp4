@@ -137,8 +137,10 @@
                  (count delays-and-paths)
                  " screenshots into GIF file..."))
   (let [cmd (-> delays-and-paths all-frame-args (full-cmd out-path gifsicle-opts))]
-    (log/debug "Executing:" cmd)
-    (shell cmd)))
+    (def final_cmd (str "echo '" cmd "'>> " out-path "/tmp.time"))
+    (log/info "final_cmd:" final_cmd)
+;    (log/info "Executing:" cmd)))
+    (shell final_cmd)))
 
 (defn -main [& args]
   (when-not (= (count args) 5)
@@ -146,18 +148,19 @@
     (exit 1))
   (go
     (let [[url tmp-dir theme speed scale] args
-          speed (js/parseFloat speed)
-          forced-width (aget env "WIDTH")
-          forced-height (aget env "HEIGHT")
-          gifsicle-opts (aget env "GIFSICLE_OPTS")
-          {:keys [width height frames]} (<? (load-asciicast url))
-          width (or forced-width width)
-          height (or forced-height height)
-          renderer (spawn-phantomjs renderer-js-path renderer-html-path width height theme scale)
-          xf (frames/accelerate-xf speed)
-          frames (frames/at-hz 15 (fn [s1 s2] s2) (sequence xf frames))
-          delays-and-paths (gen-image-frames renderer tmp-dir frames)]
+          speed                           (js/parseFloat speed)
+          forced-width                    (aget env "WIDTH")
+          forced-height                   (aget env "HEIGHT")
+          gifsicle-opts                   (aget env "GIFSICLE_OPTS")
+          {:keys [width height frames]}   (<? (load-asciicast url))
+          width                           (or forced-width width)
+          height                          (or forced-height height)
+          renderer                        (spawn-phantomjs renderer-js-path renderer-html-path width height theme scale)
+          xf                              (frames/accelerate-xf speed)
+          frames                          (frames/at-hz 15 (fn [s1 s2] s2) (sequence xf frames))
+          delays-and-paths                (gen-image-frames renderer tmp-dir frames)]
       (close-stdin renderer)
-      (<? (wait-for-exit renderer)))))
+      (<? (wait-for-exit renderer))
+      (gen-gif delays-and-paths tmp-dir gifsicle-opts))))
 
 (set! *main-cli-fn* -main)

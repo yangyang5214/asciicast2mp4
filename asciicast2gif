@@ -97,14 +97,16 @@ node \
     $NODE_OPTS \
     "${asciicast2gif_dir}/main.js" \
     "${1}" \
-    "${tmp_dir}" \
+    $tmp_dir \
     $theme \
     $speed \
     $scale
 
-out_path=$HOME'/data/playlog/'$case_id'/result.mp4'
-echo out_file:${out_path}
+python3 time_process.py
 
-ffmpeg -i $tmp_dir/%d.png $out_path -y
+mp4_out_path=$tmp_dir'/result.mp4'
+echo out_file:${mp4_out_path}
+
+ffmpeg -f concat -safe 0 -i $tmp_dir'/result.time' -plays 0 $mp4_out_path -y
 
 echo -e "\x1b[32m==> \x1b[0mDone."
