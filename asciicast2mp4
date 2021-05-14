@@ -88,11 +88,6 @@ fi
 
 case_id=$(basename -s .cast ${1})
 tmp_dir='/data/'$case_id
-
-# bad case https://stackoverflow.com/questions/17341673/mkdir-p-returns-error-file-exists
-rm -rf $tmp_dir
-mkdir -p $tmp_dir
-
 echo tmp_dir:${tmp_dir}
 
 node \
