@@ -36,6 +36,10 @@ All result in dir: /Users/beer/data/playlog/d18d3f31985dfb5bcc42120f8e289ba7a6d7
 -rw-r--r--  1 beer  staff    22K May 13 11:04 0.png
 ```
 
+<video id="video" controls="" preload="none" poster="">
+      <source id="mp4" src="https://beef-1256523277.cos.ap-chengdu.myqcloud.com/uPic/result.mp4" type="video/mp4">
+</video>
+
 ### docker
 
 ```shell
