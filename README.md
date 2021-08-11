@@ -1,8 +1,6 @@
 
 > fork form [asciicast2gif](https://github.com/asciinema/asciicast2gif). asciinema to mp4
 
-从 asciicast2gif 项目阉割的, 不生成 gif, 直接转为 mp4
-
 ### demo
 
 ```shell
