@@ -42,6 +42,8 @@ All result in dir: /Users/beer/data/playlog/d18d3f31985dfb5bcc42120f8e289ba7a6d7
 
 ### docker
 
+#### pull docker image
+
 ```shell
 docker pull beer5215/asciicast2mp4
 ```
@@ -52,6 +54,9 @@ or
 cd asciicast2mp4
 docker build -t beer5215/asciicast2mp4 .
 ```
+
+
+#### run 
 
 ```shell
 docker run --rm -v $PWD:/data beer5215/asciicast2mp4 xxx.cast
