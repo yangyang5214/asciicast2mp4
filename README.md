@@ -67,3 +67,15 @@ $ ls
 open result.mp4
 ```
 
+
+```
+➜  ~ alias asciicast2mp4
+asciicast2mp4='docker run --rm -v $PWD:/data beer5215/asciicast2mp4'
+
+
+asciicast2mp4 xxxx.cast
+
+cd xxxx
+open result.mp4
+```
+
