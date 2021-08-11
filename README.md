@@ -5,7 +5,7 @@
 
 ```shell
 
-cd asciicast2gif
+cd asciicast2mp4
 
 # build
 lein cljsbuild once main && lein cljsbuild once page 
