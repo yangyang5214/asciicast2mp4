@@ -1,6 +1,10 @@
 
 > fork form [asciicast2gif](https://github.com/asciinema/asciicast2gif). asciinema to mp4
 
+
+⚠️：https://github.com/yangyang5214/asciicast2mp4/issues/1#issuecomment-1019397878
+
+
 ### demo
 
 ```shell
